@@ -1,24 +1,45 @@
-import React, { Component } from 'react'
-import { getRandomColor } from './randomColorGenerator.js'
-import Child from './Child'
+import React, { Component } from 'react';
+import { getRandomColor } from './randomColorGenerator.js';
+import Child from './Child';
 
-class Parent extends Component {
+export default class Parent extends Component {
 
   constructor() {
-    super()
+    super();
     this.state = {
-      color: getRandomColor()
+      color: getRandomColor(),
+      childrenColor: '#FFF'
     }
+  };
+
+  changeColor = (newKiddo) => {
+    this.setState(
+      {
+        color: getRandomColor(),
+        childrenColor: newKiddo
+      }
+    )
   }
 
   render() {
     return (
-      <div className="parent" style={{backgroundColor: this.state.color}}>
-        <Child />
-        <Child />
-      </div>
-    )
-  }
-}
+      <div
+        className="parent"
+        style={ { backgroundColor: this.state.color } }
+      >
 
-export default Parent
+          <Child
+            color={ this.state.childrenColor }
+            handleColorChange={ this.changeColor }
+          />
+
+          <Child
+            color={ this.state.childrenColor }
+            handleColorChange={ this.changeColor }
+          />
+
+      </div>
+    );
+  };
+
+}
